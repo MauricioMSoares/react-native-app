@@ -1,35 +1,44 @@
 import { useState } from "react";
-import { Text, View, Button, TextInput, StyleSheet } from "react-native";
+import { View, Text, TextInput, Button, StyleSheet } from "react-native";
+import { useRouter } from "expo-router";
 
 export default function Index() {
   const [text, setText] = useState("");
   const [textToPrint, setTextToPrint] = useState("");
 
   const handleChange = (value: string) => {
-    setText(value)
-  }
+    setText(value);
+  };
+
+  const router = useRouter();
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.textContent}>Insert the text to be printed:</Text>
+    <>
+      <View style={styles.container}>
+        <Text style={styles.textContent}>Insert the text to be printed:</Text>
 
-      <TextInput
-        style={styles.input}
-        onChangeText={handleChange}
-        value={text}
-        placeholder="Type something..."
-      />
+        <TextInput
+          style={styles.input}
+          onChangeText={handleChange}
+          value={text}
+          placeholder="Type something..."
+        />
 
-      <Button
-        title="Test Action"
-        onPress={() => {
-          console.log("Pressed:", text);
-          setTextToPrint(text);
-        }}
-      />
+        <Button
+          title="Test Action"
+          onPress={() => {
+            console.log("Pressed:", text);
+            setTextToPrint(text);
+          }}
+        />
 
-      <Text style={styles.output}>{textToPrint}</Text>
-    </View>
+        <Text style={styles.output}>{textToPrint}</Text>
+        <Button
+          title="Go to Second screen"
+          onPress={() => router.push("/screens/SecondScreen")}
+        />
+      </View>
+    </>
   );
 }
 
